@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="336a471e-d4ae-4a31-9af5-43a7349161a6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/10.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/11.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/12.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/13.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/14.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/15.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/16.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/17.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/18.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/4.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/5.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/6.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/7.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/8.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/9.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gallery_by_react_node_modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data/imagDatas.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="gallery-by-react.iws" />
     <ignored path=".idea/workspace.xml" />
