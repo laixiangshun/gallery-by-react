@@ -5,9 +5,9 @@ var React = require('react/addons');
 // CSS
 require('normalize.css');
 require('../styles/main.scss');
-//»ñÈ¡json¸ñÊ½Í¼Æ¬Êı¾İ
+//è·å–jsonæ ¼å¼å›¾ç‰‡æ•°æ®
 var imageDatas = require('../data/imagDatas.json');
-//ÀûÓÃ×ÔÖ´ĞĞº¯Êı½«Í¼Æ¬ĞÅÏ¢×ª»»ÎªÍ¼Æ¬URLÂ·¾¶ĞÅÏ¢
+//åˆ©ç”¨è‡ªæ‰§è¡Œå‡½æ•°å°†å›¾ç‰‡ä¿¡æ¯è½¬æ¢ä¸ºå›¾ç‰‡URLè·¯å¾„ä¿¡æ¯
  imageDatas = (function genImageURL(imageDataArr)
 {
   for(var i = 0, j = imageDataArr.length; i < j; i++)
@@ -19,14 +19,20 @@ var imageDatas = require('../data/imagDatas.json');
   return imageDataArr;
 })(imageDatas);
 
-//»ñÈ¡Çø¼äÄÚµÄÒ»¸öËæ»úÖµ
-function getRangeRandom(low,high){
-  return Math.ceil(Math.random() * (high - low) +low);
+//è·å–åŒºé—´å†…çš„ä¸€ä¸ªéšæœºå€¼
+function getRangeRandom(low, high){
+  return Math.ceil(Math.random() * (high - low) + low);
 }
 var ImgFigure = React.createClass({
   render: function(){
+      var styleObj = {};
+      //å¦‚æœpropså±æ€§ä¸­æŒ‡å®šäº†å›¾ç‰‡çš„ä½ç½®ä¿¡æ¯ï¼Œåˆ™ç›´æ¥ä½¿ç”¨
+      if(this.props.arrange.pos)
+      {
+          styleObj = this.props.arrange.pos;
+      }
     return (
-        <figure className = "img-figure">
+        <figure className = "img-figure" style = {styleObj}>
             <img src = {this.props.data.imageURL} alt = {this.props.data.title}/>
             <figcaption>
               <h2 className = "img-title">{this.props.data.title}</h2>
@@ -36,24 +42,24 @@ var ImgFigure = React.createClass({
   }
 });
 var GalleryByReactApp = React.createClass({
-  Constant:{
-    centerPos:{
-      left:0,
-      right:0
+   Constant: {
+    centerPos: {
+      left: 0,
+      top: 0
     },
-    hPosRange:{//Ë®Æ½·½ÏòµÄÈ¡Öµ·¶Î§
-      leftSecx:[0,0],
-      rightSecx:[0,0],
-      y:[0,0]
+    hPosRange: {//æ°´å¹³æ–¹å‘çš„å–å€¼èŒƒå›´
+      leftSecx: [0, 0],
+      rightSecx: [0, 0],
+      y: [0, 0]
     },
-    vPosRange:{//´¹Ö±·½ÏòµÄÈ¡Öµ·¶Î§
-      x:[0,0],
-      topY:[0,0]
+    vPosRange: {//å‚ç›´æ–¹å‘çš„å–å€¼èŒƒå›´
+      x: [0, 0],
+      topY: [0, 0]
     }
   },
-  //·â×°·½·¨£ºÖØĞÂ²¼¾ÖËùÒÔÍ¼Æ¬£¬centerIndexÖ¸¶¨¾ÓÖĞÅÅ²¼ÄÇ¸öÍ¼Æ¬
-  rearrange : function (centerIndex){
-    var imgsArrangeArr = this.stage.imgsArrangeArr,
+  //å°è£…æ–¹æ³•ï¼šé‡æ–°å¸ƒå±€æ‰€ä»¥å›¾ç‰‡ï¼ŒcenterIndexæŒ‡å®šå±…ä¸­æ’å¸ƒé‚£ä¸ªå›¾ç‰‡
+  rearrange: function (centerIndex){
+    var imgsArrangeArr = this.state.imgsArrangeArr,
         Constant = this.Constant,
         centerPos = Constant.centerPos,
         hPosRange = Constant.hPosRange,
@@ -65,27 +71,52 @@ var GalleryByReactApp = React.createClass({
         vPosRangeX = vPosRange.x,
 
         imgsArrangeTopArr = [],
-        topImgNum = Math.ceil(Math.random() * 2), //ÉÏÇøÓòÈ¡Ò»¸ö»ò0¸öÍ¼Æ¬
+        topImgNum = Math.ceil(Math.random() * 2), //ä¸ŠåŒºåŸŸå–ä¸€ä¸ªæˆ–0ä¸ªå›¾ç‰‡
         topImgSpliceIndex = 0,
-        imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex,1);//´æ·ÅÖĞĞÄÍ¼Æ¬×´Ì¬ĞÅÏ¢
-        //Ê×ÏÈ¾ÓÖĞcenterIndexµÄÍ¼Æ¬
+        imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex, 1);//å­˜æ”¾ä¸­å¿ƒå›¾ç‰‡çŠ¶æ€ä¿¡æ¯
+        //é¦–å…ˆå±…ä¸­centerIndexçš„å›¾ç‰‡
         imgsArrangeCenterArr[0].pos = centerPos;
-        //È¡³ö²¼¾ÖÉÏ²àµÄÍ¼Æ¬µÄ×´Ì¬ĞÅÏ¢
+        //å–å‡ºå¸ƒå±€ä¸Šä¾§çš„å›¾ç‰‡çš„çŠ¶æ€ä¿¡æ¯
         topImgSpliceIndex = Math.ceil(Math.random() * (imgsArrangeArr.length - topImgNum));
-        imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex,topImgNum);
-        //²¼¾ÖÎ»ÓÚÉÏ²àµÄÍ¼Æ¬
-        imgsArrangeTopArr.forEach(function(value,index){
+        imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex, topImgNum);
+        //å¸ƒå±€ä½äºä¸Šä¾§çš„å›¾ç‰‡
+        imgsArrangeTopArr.forEach(function(value, index){
           imgsArrangeTopArr[index].pos = {
-            top:getRangeRandom(vPosRangeTopY[0],vPosRangeTopY[1]),
-            left:getRangeRandom(vPosRangeX[0],vPosRangeX[1])
-          }
+            top: getRangeRandom(vPosRangeTopY[0], vPosRangeTopY[1]),
+            left: getRangeRandom(vPosRangeX[0], vPosRangeX[1])
+          };
         });
-    //²¼¾Ö×óÓÒÁ½²àµÄÍ¼Æ¬
+    //å¸ƒå±€å·¦å³ä¸¤ä¾§çš„å›¾ç‰‡
+      for(var i = 0, j = imgsArrangeArr.length, k = j / 2; i < j; i++)
+      {
+            var hPosRangeLORX = null;
+          //å‰åŠéƒ¨åˆ†å¸ƒå±€å·¦è¾¹ï¼ŒååŠéƒ¨åˆ†å¸ƒå±€å³è¾¹
+            if(i < k)
+            {
+                hPosRangeLORX = hPosRangeLeftSecX;
+            }else
+            {
+                hPosRangeLORX = hPosRangeRightSecX;
+            }
+          imgsArrangeArr[i].pos = {
+              top: getRangeRandom(hPosRangeY[0], hPosRangeY[1]),
+              left: getRangeRandom(hPosRangeLORX[0], hPosRangeLORX[1])
+          };
+      }
+      if(imgsArrangeTopArr && imgsArrangeTopArr[0])
+      {
+          imgsArrangeArr.splice(topImgSpliceIndex, 0, imgsArrangeTopArr[0]);
+      }
+      imgsArrangeArr.splice(centerIndex, 0, imgsArrangeCenterArr[0]);
+
+      this.setState({
+         imgsArrangeArr: imgsArrangeArr
+      });
   },
-  //»ñÈ¡×´Ì¬ĞÅÏ¢
-  getInitialState : function(){
+  //è·å–çŠ¶æ€ä¿¡æ¯
+  getInitialState: function(){
     return {
-      imgsArrangeArr : [
+      imgsArrangeArr: [
         /*{
           pos : {
          left : "0",
@@ -95,25 +126,25 @@ var GalleryByReactApp = React.createClass({
       ]
     };
   },
-  //×é¼ş¼ÓÔØÒÔºó£¬ÎªÃ¿ÕÅÍ¼Æ¬¼ÆËãÆäÎ»ÖÃ·¶Î§
-  componentDidMount : function(){
-    //ÎèÌ¨µÄ´óĞ¡
+  //ç»„ä»¶åŠ è½½ä»¥åï¼Œä¸ºæ¯å¼ å›¾ç‰‡è®¡ç®—å…¶ä½ç½®èŒƒå›´
+  componentDidMount: function(){
+    //èˆå°çš„å¤§å°
     var stageDOM = React.findDOMNode(this.refs.stage),
         stageW = stageDOM.scrollWidth,
         stageH = stageDOM.scrollHeight,
         halfStageW = Math.ceil(stageW / 2),
         halfStageH = Math.ceil(stageH / 2);
-    //ÄÃÒ»¸öImgFigureµÄ´óĞ¡
+    //æ‹¿ä¸€ä¸ªImgFigureçš„å¤§å°
     var imgFigureDOM = React.findDOMNode(this.refs.imgFigure0),
         imgW = imgFigureDOM.scrollWidth,
         imgH = imgFigureDOM.scrollHeight,
         halfImgW = Math.ceil(imgW / 2),
         halfImgH = Math.ceil(imgH / 2);
-    //¼ÆËãÖĞĞÄÍ¼Æ¬Î»ÖÃµã
+    //è®¡ç®—ä¸­å¿ƒå›¾ç‰‡ä½ç½®ç‚¹
     this.Constant.centerPos = {
-      left : halfStageW - halfImgW,
-      right : halfStageH - halfImgH
-    }
+      left: halfStageW - halfImgW,
+      top: halfStageH - halfImgH
+    };
     this.Constant.hPosRange.leftSecx[0] = -halfImgW;
     this.Constant.hPosRange.leftSecx[1] = halfStageW - halfImgW * 3;
     this.Constant.hPosRange.rightSecx[0] = halfStageW + halfImgW;
@@ -123,25 +154,25 @@ var GalleryByReactApp = React.createClass({
 
     this.Constant.vPosRange.topY[0] = -halfImgH;
     this.Constant.vPosRange.topY[1] = halfStageH - halfImgH * 3;
-    this.Constant.vPosRange.x[0] = halfImgW - imgW;
-    this.Constant.vPosRange.x[1] = halfImgW;
+    this.Constant.vPosRange.x[0] = halfStageW - imgW;
+    this.Constant.vPosRange.x[1] = halfStageW;
 
-    this.rearrange(0);//½«µÚÒ»ÕÅÍ¼Æ¬¾ÓÖĞ
+    this.rearrange(0);//å°†ç¬¬ä¸€å¼ å›¾ç‰‡å±…ä¸­
   },
   render: function() {
     var controllerUnits = [],
         imgFigures = [];
-    imageDatas.forEach(function(value,index){
-      if(!this.stage.imgsArrangeArr[index])
+    imageDatas.forEach(function(value, index){
+      if(!this.state.imgsArrangeArr[index])
       {
-        this.stage.imgsArrangeArr[index] = {
-          pos : {
-            left : 0,
-            top : 0
+        this.state.imgsArrangeArr[index] = {
+          pos: {
+            left: 0,
+            top: 0
           }
-        }
+        };
       }
-      imgFigures.push(<ImgFigure data={value} ref={"imgFigure" + index}/>);
+      imgFigures.push(<ImgFigure data = {value} ref={'imgFigure' + index} arrange = {this.state.imgsArrangeArr[index]}/>);
     }.bind(this));
     return (
         <section className="stage" ref="stage">
