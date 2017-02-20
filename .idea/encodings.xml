@@ -2,5 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/components/GalleryByReactApp.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/data/imagDatas.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/styles/main.scss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webpack.config.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webpack.dist.config.js" charset="UTF-8" />
   </component>
 </project>
